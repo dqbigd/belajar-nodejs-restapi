@@ -20,4 +20,7 @@ module.exports = function (app) {
 
     app.route('/hapus')
         .delete(controller.deleteUser);
+
+    app.route('/tampilfollower')
+        .get(controller.usersNested);
 }

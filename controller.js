@@ -47,7 +47,7 @@ exports.postUser = function(req, res){
                 response.ok("Berhasil menambah data user", res);
             }
         });
-};
+}
 
 //ubah data user berdasar id
 exports.editUser = function(req, res){
@@ -64,7 +64,7 @@ exports.editUser = function(req, res){
                 response.ok("Data berhasil diedit", res)
             }
         });
-};
+}
 
 //delete data user berdasar id
 exports.deleteUser = function(req, res){
@@ -78,10 +78,18 @@ exports.deleteUser = function(req, res){
                 response.ok("Data id_user = " + id_user+ " berhasil didelete", res)
             }
         });
-};
+}
 
 //menampilkan nested users
 exports.usersNested = function(req, res){
-
+    connection.query("SELECT users.id_user, users.email, users.password, ibadah.nama, ibadah.alamat from followers JOIN ibadah JOIN users WHERE followers.id_ibadah = ibadah.id_ibadah AND followers.id_user = users.id_user ORDER BY users.id_user",
+        function (error, rows, fields){
+            if(error){
+                console.log(error);
+            }else{
+                response.oknested(rows, res);
+            }
+        }
+    )
 
 }
